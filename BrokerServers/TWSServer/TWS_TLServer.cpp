@@ -335,8 +335,22 @@ namespace TradeLibFast
 		CString dates = CString(datestring);
 		int64 unix = _atoi64(dates.GetBuffer());
 		CTime ct(unix);
-		int date = (ct.GetYear()*10000) + (ct.GetMonth()*100) + ct.GetDay();
-		int time = (ct.GetHour()*10000)+(ct.GetMinute()*100) + ct.GetSecond();
+		int date;
+		int time;
+		
+		// workaround for different date formats that's returned depending on barsize setting (daily vs intraday)
+		// should work until the year 3155 or so
+		if (ct.GetYear() > 1970)
+		{
+			date = (ct.GetYear() * 10000) + (ct.GetMonth() * 100) + ct.GetDay();
+			time = (ct.GetHour() * 10000) + (ct.GetMinute() * 100) + ct.GetSecond();
+		}
+		else
+		{
+			date = unix;
+			time = 0;
+		}
+
 		// get request
 		BarRequest br = histBarSymbols[reqId];
 		// build bar
