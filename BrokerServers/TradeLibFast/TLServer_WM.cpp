@@ -97,7 +97,7 @@ namespace TradeLibFast
 
 	bool TLServer_WM::needStock(CString stock)
 	{
-		D("TLServer_WM::needStock " + stock);
+		D2("TLServer_WM::needStock " + stock);
 		int idx = FindSym(stock);
 		if (idx==-1) return false;
 		bool needed = symclientidx[idx].size()!=0;

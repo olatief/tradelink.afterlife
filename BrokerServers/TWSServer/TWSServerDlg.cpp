@@ -467,7 +467,10 @@ void CTWSServerDlg::set_debuglevel(int debug_level)
 	CString new_val;
 	new_val.Format("%d", debug_level);
 	if (debug_level >= min_debuglevel && debug_level <= max_debuglevel)
-		m_debuglevel.SetWindowTextA(new_val);	
+	{
+		tl->TLDEBUG_LEVEL = debug_level;
+		m_debuglevel.SetWindowTextA(new_val);
+	}	
 }
 
 void CTWSServerDlg::OnEnVscrollStatus()
